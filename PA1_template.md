@@ -1,10 +1,10 @@
 # Reproducible Research: Peer Assessment 1
 
-#Set the global options for the R markdown document to echo the code
+###Set the global options for the R markdown document to echo the code
 
 
 
-#Installing the required external packages and loading them for use
+###Installing the required external packages and loading them for use
 
 ```r
 install.packages("zoo")
@@ -31,14 +31,14 @@ library("zoo")
 
 ## Loading and preprocessing the data
 
-#Read data from the csv file from the working directory
+###Read data from the csv file from the working directory
 
 ```r
 Activity <- read.csv("~/Rwork/activity.csv")
 ```
 
 
-#Convert the columns into corresponding suitable formats, i.e., Date for date and numeric for the others
+###Convert the columns into corresponding suitable formats, i.e., Date for date and numeric for the others
 
 ```r
 Activity$steps <- sapply(Activity$steps, as.numeric)
@@ -50,7 +50,7 @@ Activity$date <- as.Date(Activity$date, "%Y-%m-%d")
 
 ## What is mean total number of steps taken per day?
 
-#Computing the total number of steps in a day and plotting the histogram
+###Computing the total number of steps in a day and plotting the histogram
 
 ```r
 stepsDay <- tapply(Activity$steps, Activity$date, sum, simplify = TRUE)
@@ -60,7 +60,7 @@ hist(stepsDay, xlab = "steps per day", main = "Number of steps in a day")
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 
-#Computing the mean and the median of total number of steps per day
+###Computing the mean and the median of total number of steps per day
 
 ```r
 median(stepsDay, na.rm = TRUE)
@@ -82,7 +82,7 @@ mean(stepsDay, na.rm = TRUE)
 
 ## What is the average daily activity pattern?
 
-#Computing the average number of steps at a given time interval across all days and plotting them as a line graph
+###Computing the average number of steps at a given time interval across all days and plotting them as a line graph
 
 ```r
 avgStepsPerTime <- tapply(Activity$steps, Activity$interval, mean, na.rm = T)
@@ -93,7 +93,7 @@ plot(avgStepsPerTime ~ Activity$interval[1:288], type = "l", xlab = "Time Interv
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 
-#Identify the time interval that contains the maximum number of steps on an average
+###Identify the time interval that contains the maximum number of steps on an average
 
 ```r
 intervalMax <- which(avgStepsPerTime == max(avgStepsPerTime))
@@ -107,7 +107,7 @@ names(intervalMax)
 
 ## Imputing missing values
 
-#Total number of missing values in the dataset
+###Total number of missing values in the dataset
 
 ```r
 sum(is.na(Activity$steps))
@@ -118,14 +118,14 @@ sum(is.na(Activity$steps))
 ```
 
 
-#Replacing the NAs with the mean value of the time interval where NAs were originally found (using the 'zoo' package)
+###Replacing the NAs with the mean value of the time interval where NAs were originally found (using the 'zoo' package)
 
 ```r
 Activity$steps <- na.aggregate(Activity$steps, by = Activity$interval, fun = mean)
 ```
 
 
-#Calculating the new mean number of steps in a day and plotting the required histogram
+###Calculating the new mean number of steps in a day and plotting the required histogram
 
 ```r
 newStepsDay <- tapply(Activity$steps, Activity$date, sum, simplify = TRUE)
@@ -135,7 +135,7 @@ hist(newStepsDay, xlab = "steps per day", main = "Number of steps in a day")
 ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
 
 
-#Computing the new mean and median total number of steps taken per day
+###Computing the new mean and median total number of steps taken per day
 
 ```r
 median(newStepsDay)
@@ -160,7 +160,7 @@ mean(newStepsDay)
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-#Creating a factor variable in the dataset to represent whether it is a weekday or a weekend
+###Creating a factor variable in the dataset to represent whether it is a weekday or a weekend
 
 ```r
 Activity$day <- weekdays(Activity$date)
@@ -169,7 +169,7 @@ Activity$weektype <- factor(ifelse(grepl("Sun|Sat", Activity$day) == TRUE, "week
 ```
 
 
-#Create a planel plot to represent average number of steps per time interval for weekday and weekend using base plotting system
+###Create a planel plot to represent average number of steps per time interval for weekday and weekend using base plotting system
 
 
 ```r
